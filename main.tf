@@ -70,9 +70,9 @@ resource "aws_route_table_association" "terraform-public" {
     route_table_id = "${aws_route_table.terraform-public.id}"
 }
 
-resource "aws_security_group" "allow_all" {
-  name        = "allow_all"
-  description = "Allow all inbound traffic"
+resource "aws_security_group" "kubernetes-k8" {
+  name        = "kubernetes-k8"
+  description = "kubernetes-k8"
   vpc_id      = "${aws_vpc.default.id}"
 
   ingress {
@@ -93,7 +93,7 @@ resource "aws_security_group" "allow_all" {
 data "aws_ami" "my_ami" {
      most_recent      = true
      #name_regex       = "^mavrick"
-     owners           = ["721834156908"]
+     owners           = ["962255898338"]
 }
 
 
