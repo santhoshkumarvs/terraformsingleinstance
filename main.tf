@@ -23,7 +23,7 @@ resource "aws_internet_gateway" "default" {
 resource "aws_subnet" "subnet1-public" {
     vpc_id = "${aws_vpc.default.id}"
     cidr_block = "${var.public_subnet1_cidr}"
-    availability_zone = "us-east-1a"
+    availability_zone = "us-east-2c"
 
     tags = {
         Name = "${var.public_subnet1_name}"
@@ -33,7 +33,7 @@ resource "aws_subnet" "subnet1-public" {
 resource "aws_subnet" "subnet2-public" {
     vpc_id = "${aws_vpc.default.id}"
     cidr_block = "${var.public_subnet2_cidr}"
-    availability_zone = "us-east-1b"
+    availability_zone = "us-east-2b"
 
     tags = {
         Name = "${var.public_subnet2_name}"
@@ -43,7 +43,7 @@ resource "aws_subnet" "subnet2-public" {
 resource "aws_subnet" "subnet3-public" {
     vpc_id = "${aws_vpc.default.id}"
     cidr_block = "${var.public_subnet3_cidr}"
-    availability_zone = "us-east-1c"
+    availability_zone = "us-east-2a"
 
     tags = {
         Name = "${var.public_subnet3_name}"
@@ -70,9 +70,9 @@ resource "aws_route_table_association" "terraform-public" {
     route_table_id = "${aws_route_table.terraform-public.id}"
 }
 
-resource "aws_security_group" "kubernetes-k8" {
-  name        = "kubernetes-k8"
-  description = "kubernetes-k8"
+resource "aws_security_group" "ohio" {
+  name        = "ohio"
+  description = "ohio"
   vpc_id      = "${aws_vpc.default.id}"
 
   ingress {
@@ -93,29 +93,29 @@ resource "aws_security_group" "kubernetes-k8" {
 data "aws_ami" "my_ami" {
      most_recent      = true
      #name_regex       = "^kubernetes"
-     owners           = ["962255898338"]
+     owners           = ["053031793797"]
 }
 
 
-# resource "aws_instance" "web-1" {
-#     ami = "${data.aws_ami.my_ami.id}"
-#     #ami = "ami-0d857ff0f5fc4e03b"
-#     availability_zone = "us-east-1a"
-#     instance_type = "t2.micro"
-#     key_name = "kubernetes"
-#     subnet_id = "${aws_subnet.subnet1-public.id}"
-#     vpc_security_group_ids = ["${aws_security_group.allow_all.id}"]
-#     associate_public_ip_address = true
-#     tags = {
-#         Name = "Automation using packer and Terraform"
-#         Env = "Prod"
-#         Owner = "Santy"
-#     }
-# }
+resource "aws_instance" "web-1" {
+    ami = "${data.aws_ami.my_ami.id}"
+    #ami = "ami-0d857ff0f5fc4e03b"
+    availability_zone = "us-east-2c"
+    instance_type = "t2.micro"
+    key_name = "ohio"
+	#     subnet_id = "${aws_subnet.subnet1-public.id}"
+    vpc_security_group_ids = ["${aws_security_group.allow_all.id}"]
+    associate_public_ip_address = true
+    tags = {
+        Name = "Automation using packer and Terraform"
+        Env = "Prod"
+        Owner = "Santy"
+    }
+}
 
-#output "ami_id" {
-#  value = "${data.aws_ami.my_ami.id}"
-#}
+ output "ami_id" {
+   value = "${data.aws_ami.my_ami.id}"
+}
 #!/bin/bash
 # echo "Listing the files in the repo."
 # ls -al
