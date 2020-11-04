@@ -1,8 +1,8 @@
 {
   "_comment" : "Create a AWS AMI ith AMZ Linux 2018 with Java and Tomcat",
   "variables": {
-    "aws_access_key": "AKIA6ACXLY3RAVWUTIMY",
-    "aws_secret_key": "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"
+    "aws_access_key": "AKIAQYWHQ6SCRKU6XIUX",
+    "aws_secret_key": "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"
   },
   "builders": [{
     "type": "amazon-ebs",
@@ -13,8 +13,8 @@
     "instance_type": "t2.micro",
     "ssh_username": "ec2-user",
     "ami_name": "DevOpsClass-Build-{{isotime | clean_resource_name}}",
-    "vpc_id": "vpc-0d31ee18d1c438072",
-    "subnet_id": "subnet-0ec949cd942ed6da7"
+    "vpc_id": "vpc-769c2b1d",
+    "subnet_id": "subnet-447b0708"
   }],
   "provisioners": [{
     "type": "shell",
